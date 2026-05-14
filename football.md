@@ -4,10 +4,7 @@ title: 足球分析
 subtitle: 交易者视角看绿茵场
 ---
 
-## 足球分析
-
-用管控风险的思维，理性拆解每一场比赛。
-
-### 最近分析
-
-*即将发布，敬请期待。*
+{% for post in site.categories.football %}
+### [{{ post.title }}]({{ post.url }})
+{{ post.date | date: "%Y年%-m月%-d日" }}
+{% endfor %}

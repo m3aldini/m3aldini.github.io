@@ -4,10 +4,7 @@ title: 股市随笔
 subtitle: 风险管控者的市场观察
 ---
 
-## 股市随笔
-
-二十多年跟风险打交道，这里是我在市场的所见所思。
-
-### 最近更新
-
-*即将发布，敬请期待。*
+{% for post in site.categories.stock %}
+### [{{ post.title }}]({{ post.url }})
+{{ post.date | date: "%Y年%-m月%-d日" }}
+{% endfor %}
