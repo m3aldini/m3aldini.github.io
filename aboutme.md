@@ -1,16 +1,30 @@
 ---
 layout: page
-title: About me
-subtitle: Why you'd want to go on a date with me
+title: 关于我
+subtitle: 用数据解读绿茵场上的艺术
 ---
 
-My name is Inigo Montoya. I have the following qualities:
+嗨，我是**再见保罗**，一个对足球战术和数据着迷的球迷。
 
-- I rock a great mustache
-- I'm extremely loyal to my family
+### 我为什么写这个博客
 
-What else do you need?
+足球不只是90分钟的比赛。每一次传球路线的选择、每一次阵型转换的时机、每一个跑位背后的意图，都藏着值得深挖的逻辑。
 
-### My story
+我相信：
 
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](https://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+- **战术不是玄学** — 每套体系都有可拆解的结构
+- **数据不是冷冰冰的** — 好的数据叙事比任何评论员都精彩
+- **看球可以更深入** — 不满足于"谁进球了"，更想知道"为什么能进球"
+
+### 我关注什么
+
+- 战术体系分析（高位压迫、低位防守、三中卫体系……）
+- 球员数据画像（xG、传球网络、跑动热图……）
+- 联赛趋势观察（英超、西甲、意甲、中超……）
+
+### 联系我
+
+- 📧 邮箱：lmaldini@163.com
+- 🐙 GitHub：[m3aldini](https://github.com/m3aldini)
+
+> 哨响之前，一切都还在变化。
