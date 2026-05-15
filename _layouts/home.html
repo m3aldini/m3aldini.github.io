@@ -4,11 +4,16 @@ layout: page
 
 {{ content }}
 
+<!-- 置顶公告 -->
+<div class="pinned-notice" style="background:#f9f9f9; border-left:3px solid #1a1a1a; padding:0.8rem 1rem; margin-bottom:1.5rem; font-size:0.93rem; color:#333; line-height:1.7;">
+  📌 下面的文章都是 AI 自动生成，<a href="{{ '/blogger-views' | absolute_url }}" style="color:#1a1a1a; font-weight:bold; text-decoration:underline; text-underline-offset:3px;">点击观看博主观点</a>，不定期更新。
+</div>
+
 {% assign posts = paginator.posts | default: site.posts %}
 
-<!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
 <ul class="posts-list list-unstyled" role="list">
   {% for post in posts %}
+  {% assign loopindex = forloop.index %}
   <li class="post-preview">
     <article>
 
@@ -26,6 +31,8 @@ layout: page
       {% endcapture %}
       {% assign thumbnail=thumbnail | strip %}
 
+      {% if loopindex <= 2 %}
+      <!-- 前两篇：完整展示 -->
       {% if site.feed_show_excerpt == false %}
       {% if thumbnail != "" %}
       <div class="post-image post-image-normal">
@@ -38,11 +45,8 @@ layout: page
 
       <a href="{{ post.url | absolute_url }}">
         <h2 class="post-title">{{ post.title | strip_html }}</h2>
-
         {% if post.subtitle %}
-          <h3 class="post-subtitle">
-          {{ post.subtitle | strip_html }}
-          </h3>
+          <h3 class="post-subtitle">{{ post.subtitle | strip_html }}</h3>
         {% endif %}
       </a>
 
@@ -51,7 +55,7 @@ layout: page
       {% endif %}
       <p class="post-meta">
         {% assign date_format = site.date_format | default: "%B %-d, %Y" %}
-        Posted on {{ post.date | date: date_format }}
+        {{ post.date | date: date_format }}
       </p>
 
       {% if thumbnail != "" %}
@@ -76,15 +80,14 @@ layout: page
         {{ post.excerpt | strip_html | truncatewords: excerpt_length }}
         {% assign excerpt_word_count = post.excerpt | number_of_words %}
         {% if post.content != post.excerpt or excerpt_word_count > excerpt_length %}
-          <a href="{{ post.url | absolute_url }}" class="post-read-more">[Read&nbsp;More]</a>
+          <a href="{{ post.url | absolute_url }}" class="post-read-more">[阅读全文]</a>
         {% endif %}
       </div>
       {% endunless %}
 
       {% if site.feed_show_tags != false and post.tags.size > 0 %}
       <div class="blog-tags">
-        <span>Tags:</span>
-        <!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
+        <span>标签：</span>
         <ul class="d-inline list-inline" role="list">
           {% for tag in post.tags %}
           <li class="list-inline-item">
@@ -95,10 +98,38 @@ layout: page
       </div>
       {% endif %}
 
+      {% else %}
+      <!-- 第3篇起：折叠展示 -->
+      <details style="border-top: 1px solid #e8e8e8; padding: 0.6rem 0;">
+        <summary style="cursor:pointer; list-style:none; display:flex; align-items:center; gap:8px; font-size: 0.95rem; color: #555;">
+          <span class="collapse-arrow" style="transition: transform 0.2s; font-size:0.65rem; color:#999;">▶</span>
+          <strong>{{ post.title | strip_html }}</strong>
+          <span style="color:#999; font-size:0.85rem; margin-left:auto;">{{ post.date | date: site.date_format }}</span>
+        </summary>
+        <div style="padding: 0.5rem 0 0 1.2rem; color: #666; font-size: 0.93rem;">
+          {{ post.excerpt | strip_html | truncatewords: 30 }}
+          <br>
+          {% if post.tags.size > 0 %}
+          <span style="font-size:0.82rem; color:#999;">
+            {% for tag in post.tags %}#{{ tag }} {% endfor %}
+          </span>
+          {% endif %}
+          <br>
+          <a href="{{ post.url | absolute_url }}">阅读全文 →</a>
+        </div>
+      </details>
+      {% endif %}
+
     </article>
   </li>
   {% endfor %}
 </ul>
+
+<style>
+details[open] .collapse-arrow {
+  transform: rotate(90deg);
+}
+</style>
 
 {% if paginator.total_pages > 1 %}
 <ul class="pagination main-pager">
@@ -106,14 +137,14 @@ layout: page
   <li class="page-item previous">
     <a class="page-link" href="{{ paginator.previous_page_path | absolute_url }}">
       <i class="fas fa-arrow-left" alt="Newer Posts"></i>
-      <span class="d-none d-sm-inline-block">Newer Posts</span>
+      <span class="d-none d-sm-inline-block">上一页</span>
     </a>
   </li>
   {% endif %}
   {% if paginator.next_page %}
   <li class="page-item next">
     <a class="page-link" href="{{ paginator.next_page_path | absolute_url }}">
-      <span class="d-none d-sm-inline-block">Older Posts</span>
+      <span class="d-none d-sm-inline-block">下一页</span>
       <i class="fas fa-arrow-right" alt="Older Posts"></i>
     </a>
   </li>
