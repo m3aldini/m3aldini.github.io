@@ -1,0 +1,78 @@
+{% comment %}
+JSON-LD structured data for blog posts.
+Auto-generates Article, SportsEvent, and FAQPage schemas from post frontmatter.
+{% endcomment %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ page.title | strip_html | jsonify }},
+  "author": {
+    "@type": "Person",
+    "name": {{ page.author | default: site.author | jsonify }}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ site.title | jsonify }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": {{ site.avatar | absolute_url | jsonify }}
+    }
+  },
+  "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+  "dateModified": {{ page.date | date_to_xmlschema | jsonify }},
+  "description": {{ page.excerpt | strip_html | truncatewords: 30 | jsonify }},
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{ page.url | absolute_url | jsonify }}
+  }
+  {% if page.tags.size > 0 %}
+  ,"keywords": {{ page.tags | join: ", " | jsonify }}
+  {% endif %}
+}
+</script>
+
+{% if page.competition and page.matchup %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SportsEvent",
+  "name": {{ page.matchup | jsonify }},
+  "sport": "Football",
+  "competitor": [
+    {
+      "@type": "SportsTeam",
+      "name": {{ page.matchup | split: " vs " | first | strip | jsonify }}
+    },
+    {
+      "@type": "SportsTeam",
+      "name": {{ page.matchup | split: " vs " | last | strip | jsonify }}
+    }
+  ],
+  {% if page.competition %}"description": {{ page.competition | jsonify }},{% endif %}
+  "startDate": {{ page.date | date_to_xmlschema | jsonify }},
+  "url": {{ page.url | absolute_url | jsonify }}
+}
+</script>
+{% endif %}
+
+{% if page.faqs %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for faq in page.faqs %}
+    {
+      "@type": "Question",
+      "name": {{ faq.question | jsonify }},
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": {{ faq.answer | jsonify }}
+      }
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}

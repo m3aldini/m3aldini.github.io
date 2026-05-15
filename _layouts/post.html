@@ -43,9 +43,16 @@ layout: base
         {{ content }}
       </div>
 
+      {% if page.competition or page.matchup %}
+        <div class="blog-meta-extra" style="margin-bottom: 0.5rem; font-size: 0.9rem; color: #777;">
+          {% if page.competition %}<span class="badge badge-light" style="border:1px solid #ddd; padding:2px 8px; border-radius:3px; margin-right:6px;">{{ page.competition }}</span>{% endif %}
+          {% if page.matchup %}<span>{{ page.matchup }}</span>{% endif %}
+        </div>
+      {% endif %}
+
       {% if page.tags.size > 0 %}
         <div class="blog-tags">
-          <span>Tags:</span>
+          <span>标签：</span>
           {% for tag in page.tags %}
             <a href="{{ '/tags' | relative_url }}#{{- tag -}}">{{- tag -}}</a>
           {% endfor %}
@@ -69,14 +76,14 @@ layout: base
         <li class="page-item previous">
           <a class="page-link" href="{{ page.previous.url | relative_url }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title | strip_html | xml_escape}}">
             <i class="fas fa-arrow-left" alt="Previous Post"></i>
-            <span class="d-none d-sm-inline-block">Previous Post</span>
+            <span class="d-none d-sm-inline-block">上一篇</span>
           </a>
         </li>
         {% endif %}
         {% if page.next.url %}
         <li class="page-item next">
           <a class="page-link" href="{{ page.next.url | relative_url }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title | strip_html | xml_escape}}">
-            <span class="d-none d-sm-inline-block">Next Post</span>
+            <span class="d-none d-sm-inline-block">下一篇</span>
             <i class="fas fa-arrow-right" alt="Next Post"></i>
           </a>
         </li>

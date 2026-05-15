@@ -166,6 +166,8 @@
   <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" />
   {% endif %}
 
+  {% include jsonld.html %}
+
   {% if page.head-extra %}
     {% for file in page.head-extra %}
       {% include {{ file }} %}

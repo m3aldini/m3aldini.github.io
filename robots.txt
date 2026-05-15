@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+Sitemap: https://m3aldini.github.io/sitemap.xml
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Block common SEO crawlers that don't add value
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
